@@ -6,6 +6,7 @@ export * from './Defaults/index.js';
 export * from './WABinary/index.js';
 export * from './WAM/index.js';
 export * from './WAUSync/index.js';
+export type WASocket = ReturnType<typeof makeWASocket>;
 export { makeWASocket };
 export default makeWASocket;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.d.ts.map
