@@ -4,7 +4,7 @@
 
 > Fork/modifikasi dari Baileys dengan optimasi dan penyesuaian khusus. Versi: **3.1.9**
 
-![Version](https://img.shields.io/badge/version-3.1.9-blue)
+![Version](https://img.shields.io/badge/version-3.1.1-blue)
 ![Node](https://img.shields.io/badge/Node.js-20+-green)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
