@@ -1,5 +1,50 @@
 import type { proto } from '../../WAProto/index.js';
 
+/** Bentuk umum satu tombol Native Flow (NF V7) — dipakai di semua nfButton* builder. */
+export interface NativeFlowButton {
+    name: string;
+    buttonParamsJson: string;
+    id?: string;
+}
+
+export interface NfButtonRow {
+    id?: string;
+    rowId?: string;
+    title?: string;
+    description?: string;
+    /** Kalau diisi, row ini otomatis di-flatten jadi section anak sendiri (nested). */
+    rows?: NfButtonRow[];
+}
+
+export interface NfButtonSection {
+    title?: string;
+    highlight_label?: string;
+    rows?: NfButtonRow[];
+}
+
+export declare function nfButtonUrl(opts: { id?: string; displayText: string; url: string; merchantUrl?: string }): NativeFlowButton;
+export declare function nfButtonCall(opts: { id?: string; displayText: string; phoneNumber: string }): NativeFlowButton;
+export declare function nfButtonCopy(opts: { id?: string; displayText: string; copyCode: string }): NativeFlowButton;
+export declare function nfButtonReminder(opts: { id?: string; displayText: string; title: string; notes?: string; startTime: number; endTime: number; timezone?: string }): NativeFlowButton;
+export declare function nfButtonCancelReminder(opts: { id?: string; displayText: string; reminderKey: string }): NativeFlowButton;
+export declare function nfButtonAddress(opts: { id?: string; displayText: string; label?: string }): NativeFlowButton;
+export declare function nfButtonLocation(opts: { id?: string; displayText: string }): NativeFlowButton;
+export declare function nfButtonQuickReply(opts: { id?: string; displayText: string; payload?: string }): NativeFlowButton;
+export declare function nfButtonSingleSelect(opts: { id?: string; displayText: string; sections?: NfButtonSection[] }): NativeFlowButton;
+/** Beberapa single_select sekaligus dalam 1 pesan — return array of buttons, bukan satu. */
+export declare function nfButtonMultiSelect(selectors: Array<{ id?: string; displayText: string; sections?: NfButtonSection[] }>): NativeFlowButton[];
+export declare function nfButtonReviewPay(opts: { id?: string; currency?: string; totalAmount1000: number; subtotal?: any; tax?: any; items?: any[]; merchant?: any }): NativeFlowButton;
+export declare function nfButtonReviewOrder(opts: { id?: string; referenceId: string; type?: string; orderId: string }): NativeFlowButton;
+export declare function nfButtonMPM(opts: { id?: string; sections?: Array<{ title?: string; productItems?: Array<{ productId?: string; product_id?: string }> }> }): NativeFlowButton;
+
+/** Legacy listMessage builder — row dengan `rows` sendiri otomatis di-flatten jadi section baru. */
+export declare function buildNestedListMessage(opts: {
+    title: string;
+    buttonText: string;
+    footer?: string;
+    sections?: NfButtonSection[];
+}): { listMessage: any };
+
 export type WAMediaUploadFunction = (stream: Buffer | NodeJS.ReadableStream, options?: {
     fileEncSha256?: Buffer;
     mediaType?: string;
@@ -26,6 +71,16 @@ export interface ExtendedMessageUtils {
     buildInteractiveAdditionalNodes?: (jid: string, m: any) => any[];
     /** Optional — canvas-rendered story card generator, lihat Utils/story-card.js. */
     renderStoryCard?: (options: StoryCardOptions) => Promise<Buffer>;
+    /** Diperlukan oleh sendStatusWhatsApp(): auth state (buat ambil JID sendiri). */
+    authState?: any;
+    /** Diperlukan oleh sendStatusWhatsApp(): resolve member grup buat statusJidList. */
+    groupMetadata?: (jid: string) => Promise<any>;
+    logger?: any;
+    linkPreviewImageThumbnailWidth?: number;
+    generateHighQualityLinkPreview?: boolean;
+    httpRequestOptions?: any;
+    mediaCache?: any;
+    getUrlInfo?: (text: string, opts?: any) => Promise<any>;
 }
 
 export interface StickerMessage {
@@ -251,6 +306,13 @@ export declare class ExtendedMessageBuilder {
     handlePollResult(content: { pollResultMessage: PollResultMessage }, jid: string, quoted?: proto.IWebMessageInfo | null): Promise<any>;
 
     handleGroupStory(content: { groupStatusMessage: GroupStatusMessage }, jid: string): Promise<any>;
+
+    /**
+     * Kirim WhatsApp Status (story) sungguhan ke `status@broadcast`, mendukung
+     * semua tipe media (text/image/video/gif/audio) sekaligus statusJidList
+     * dan status-mention follow-up ke tiap jids.
+     */
+    sendStatusWhatsApp(content: GroupStatusMessage, jids?: string[]): Promise<any>;
 }
 
 export default ExtendedMessageBuilder;

@@ -21,6 +21,10 @@ export declare const makeMessagesSocket: (config: SocketConfig) => {
     getMediaHost: () => string;
     waUploadToServer: import("../Types/index.js").WAMediaUploadFunction;
     extendedMessages: ExtendedMessageBuilder;
+    /** Kirim WhatsApp Status (story) beneran ke status@broadcast — semua tipe media, plus statusJidList & status-mention follow-up. */
+    sendStatusMention: (content: import("./dugong.js").GroupStatusMessage, jids?: string[]) => Promise<WAMessage>;
+    /** Send WA Group Chat: kirim konten story-styled (semua type, lihat handleGroupStory) langsung ke chat sebuah grup. `jid` wajib group JID. */
+    swgc: (jid: string, content: import("./dugong.js").GroupStatusMessage, options?: { quoted?: proto.IWebMessageInfo | null }) => Promise<any>;
     fetchPrivacySettings: (force?: boolean) => Promise<{
         [_: string]: string;
     }>;

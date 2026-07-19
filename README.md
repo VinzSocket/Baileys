@@ -5,7 +5,7 @@
 **Fork WebSocket library WhatsApp Web Multi-Device — dasar dari ekosistem bot Harps-MD**
 
 [![GitHub](https://img.shields.io/badge/GitHub-VinzSocket/Baileys-blue?style=for-the-badge&logo=github)](https://github.com/VinzSocket/Baileys)
-![Version](https://img.shields.io/badge/version-3.2.10-blue)
+![Version](https://img.shields.io/badge/version-3.2.14-blue)
 ![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20-green)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 ![Type](https://img.shields.io/badge/type-ESM-yellow)
@@ -1218,7 +1218,7 @@ await conn.sendMessage(groupJid, {
 })
 ```
 
-> ⚠️ **Penting:** sejak v3.2.10, setiap mode `handleGroupStory()` **wajib** menyertakan `additionalNodes` (node `<meta is_vsn2="1">`) di panggilan `relayMessage()`-nya. Tanpa ini, pesan tetap terkirim & ter-enkripsi normal (tidak ada error), tapi klien penerima tidak tahu payload tersebut harus dirender sebagai story grup — sehingga tidak pernah muncul sebagai ring status untuk anggota lain. Detail lengkap bug ini ada di [Changelog v3.2.10](#-changelog-ringkas). Jika Anda memakai versi ≥ 3.2.10, ini sudah otomatis tertangani.
+> ⚠️ **Penting:** sejak v3.2.14, setiap mode `handleGroupStory()` **wajib** menyertakan `additionalNodes` (node `<meta is_vsn2="1">`) di panggilan `relayMessage()`-nya. Tanpa ini, pesan tetap terkirim & ter-enkripsi normal (tidak ada error), tapi klien penerima tidak tahu payload tersebut harus dirender sebagai story grup — sehingga tidak pernah muncul sebagai ring status untuk anggota lain. Detail lengkap bug ini ada di [Changelog v3.2.14](#-changelog-ringkas). Jika Anda memakai versi ≥ 3.2.14, ini sudah otomatis tertangani.
 
 ### Story Card Generator (`renderStoryCard`)
 
@@ -2318,7 +2318,7 @@ Jika handler lama Anda memiliki logic khusus untuk mem-parsing `buttonsResponseM
 
 ### Q: Bot terkoneksi tapi tombol/list yang saya kirim tidak muncul di HP penerima?
 
-**A:** Ini hampir selalu soal `additionalNodes` binary hint yang hilang. Jika Anda memakai `sock.sendMessage()` biasa, ini seharusnya sudah otomatis. Jika Anda memakai `relayMessage()` secara manual, pastikan menyertakan `buildInteractiveAdditionalNodes(jid, message)` — lihat bagian [`buildInteractiveAdditionalNodes`](#buildinteractiveadditionalnodes--kenapa-wajib-ada). Pastikan juga Anda sedang menjalankan versi ≥ 3.2.10 untuk `groupStatusMessage`, karena bug ini pernah terjadi khusus untuk Group Status V2 sebelum versi tersebut.
+**A:** Ini hampir selalu soal `additionalNodes` binary hint yang hilang. Jika Anda memakai `sock.sendMessage()` biasa, ini seharusnya sudah otomatis. Jika Anda memakai `relayMessage()` secara manual, pastikan menyertakan `buildInteractiveAdditionalNodes(jid, message)` — lihat bagian [`buildInteractiveAdditionalNodes`](#buildinteractiveadditionalnodes--kenapa-wajib-ada). Pastikan juga Anda sedang menjalankan versi ≥ 3.2.14 untuk `groupStatusMessage`, karena bug ini pernah terjadi khusus untuk Group Status V2 sebelum versi tersebut.
 
 ### Q: Error `ERR_REQUIRE_ESM` saat `require('@vinzsocket/baileys')`?
 
@@ -2348,7 +2348,7 @@ Modul ini sengaja **lazy-imported** (tidak jadi hard dependency) supaya konsumen
 
 ### Q: Apakah Harps-Baileys mendukung WhatsApp Flow (form registrasi multi-field native)?
 
-**A:** Dukungan native multi-field Flow form (`flow_json` dengan banyak field terstruktur, validasi server-side, dsb — fitur "WhatsApp Flows" penuh) **belum diverifikasi tersedia** secara native di fork ini pada versi 3.2.10. Alternatif yang bisa dipakai sekarang adalah **form terpandu bertahap** (guided step-by-step): kirim serangkaian pertanyaan satu per satu memakai `interactiveMessage` biasa (teks/tombol/list) dan simpan progres jawaban di state percakapan bot Anda sendiri, alih-alih mengandalkan satu payload Flow form native. Jika kebutuhan Anda spesifik untuk Flow form penuh, pantau `CHANGELOG.md` untuk update fitur ini di rilis mendatang.
+**A:** Dukungan native multi-field Flow form (`flow_json` dengan banyak field terstruktur, validasi server-side, dsb — fitur "WhatsApp Flows" penuh) **belum diverifikasi tersedia** secara native di fork ini pada versi 3.2.14. Alternatif yang bisa dipakai sekarang adalah **form terpandu bertahap** (guided step-by-step): kirim serangkaian pertanyaan satu per satu memakai `interactiveMessage` biasa (teks/tombol/list) dan simpan progres jawaban di state percakapan bot Anda sendiri, alih-alih mengandalkan satu payload Flow form native. Jika kebutuhan Anda spesifik untuk Flow form penuh, pantau `CHANGELOG.md` untuk update fitur ini di rilis mendatang.
 
 ### Q: Pesan text saya yang mengandung URL tidak menampilkan link preview?
 
@@ -2870,7 +2870,7 @@ done
 
 Riwayat perubahan lengkap ada di [`CHANGELOG.md`](./CHANGELOG.md). Ringkasan rilis terbaru:
 
-### v3.2.10 (2026-07-06) — Bug Fix Kritis Group Status
+### v3.2.14 (2026-07-06) — Bug Fix Kritis Group Status
 
 **Masalah:** status/story grup (`groupStatusMessage`) tidak pernah muncul sebagai ring status untuk anggota lain, walaupun `relayMessage()` berhasil tanpa error sama sekali.
 
