@@ -6,10 +6,11 @@
 
 **Modded Baileys v7** — Library WhatsApp Multi-Device berbasis WebSocket dengan dukungan VoIP, Interactive Message, Album, dan Newsletter.
 
-![version](https://img.shields.io/badge/version-3.3.13-blue)
-![license](https://img.shields.io/badge/license-MIT-green)
-![node](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen)
-![type](https://img.shields.io/badge/module-ESM-yellow)
+[![npm version](https://img.shields.io/npm/v/ourin-baileys?color=CB3837&logo=npm&logoColor=white&style=for-the-badge)](https://www.npmjs.com/package/ourin-baileys)
+[![npm downloads](https://img.shields.io/npm/dm/ourin-baileys?color=CB3837&logo=npm&logoColor=white&style=for-the-badge)](https://www.npmjs.com/package/ourin-baileys)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D20.0.0-339933?logo=node.js&logoColor=white&style=for-the-badge)](https://nodejs.org)
+[![ESM](https://img.shields.io/badge/ESM-only-F7DF1E?logo=javascript&logoColor=black&style=for-the-badge)](#)
 
 </div>
 
